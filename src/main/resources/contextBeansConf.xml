@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <!--для конфигурации Spring с помощью программного кода-->
+    <context:component-scan base-package="com.andersen.entity.configuration"/>
+
+    <!--для использования автоматического определения компонентов-->
+    <!--<context:component-scan base-package="com.andersen.entity"/>-->
+
+    <!--для использования автоматического связывания компонентов-->
+    <!--<context:annotation-config/>-->
+
+    <!--<bean id="duke"-->
+          <!--class="com.andersen.entity.constructor.Juggler">-->
+        <!--<constructor-arg value="15"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="poeticDuke" class="com.andersen.entity.constructor.PoeticJuggler">-->
+        <!--<constructor-arg index="0" value="15"/>-->
+        <!--<constructor-arg index="1" ref="sonnet29"/>-->
+
+    <!--</bean>-->
+
+    <!--<bean id="sonnet29" class="com.andersen.entity.constructor.Sonnet29">-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash;создаем компонент спринга класс-одиночку (синглтон) с помощью фабричного метода&ndash;&gt;-->
+    <!--<bean id="theStage" class="com.andersen.entity.factoryMethod.Stage"-->
+          <!--factory-method="getInstance">-->
+    <!--</bean>-->
+
+    <!--<bean id="kenny"-->
+          <!--class="com.andersen.entity.depInj.Instrumentalist">-->
+        <!--<property name="song" value="Jingle Bells"/>-->
+        <!--<property name="instrument" ref="piano"/>-->
+        <!--&lt;!&ndash;<property name="instrument">&ndash;&gt;-->
+            <!--&lt;!&ndash;<bean class="com.andersen.entity.depInj.Piano"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;</property>&ndash;&gt;-->
+        <!--<property name="age" value="37"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="kenny2" class="com.andersen.entity.depInj.Instrumentalist">-->
+        <!--<property name="song" value="Jingle Bell"/>-->
+        <!--<property name="instrument" ref="saxophone"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="saxophone"-->
+          <!--class="com.andersen.entity.depInj.Saxophone">-->
+    <!--</bean>-->
+
+    <!--<bean id="piano"-->
+          <!--class="com.andersen.entity.depInj.Piano">-->
+    <!--</bean>-->
+
+    <!--<bean id="guitar"-->
+          <!--class="com.andersen.entity.depInj.Guitar"/>-->
+
+    <!--&lt;!&ndash;внедрение коллекции&ndash;&gt;-->
+    <!--<bean id="hank" class="com.andersen.entity.injectCollection.OneManBand">-->
+        <!--<property name="instruments">-->
+            <!--<list>-->
+                <!--<ref bean="piano"/>-->
+                <!--<ref bean="saxophone"/>-->
+                <!--<ref bean="guitar"/>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash;внедрение коллекции Map&ndash;&gt;-->
+    <!--<bean id="hankMap" class="com.andersen.entity.injectCollection.OneMandBandCollectMap">-->
+        <!--<property name="instruments">-->
+            <!--<map>-->
+                <!--<entry key="GUITAR" value-ref="guitar"/>-->
+                <!--<entry key="SAXOPHONE" value-ref="saxophone"/>-->
+                <!--<entry key="PIANO" value-ref="piano"/>-->
+            <!--</map>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!--<bean id="hankProperties" class="com.andersen.entity.injectCollection.OneManBandProperties" >-->
+
+        <!--<property name="instruments">-->
+            <!--<props>-->
+                <!--<prop key="GUITAR">strun strun</prop>-->
+                <!--<prop key="PPAANI">drin drin</prop>-->
+                <!--<prop key="Saxophone">toot tooot</prop>-->
+            <!--</props>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!--использование SpEL-->
+    <!--<bean id="karl" class="com.andersen.entity.depInj.Instrumentalist">-->
+        <!--<property name="song" value="#{kenny.song}"/>-->
+        <!--<property name="instrument" ref="piano"/>-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash;Наследование, класс родитель&ndash;&gt;-->
+    <!--<bean id="baseSaxophonist"-->
+          <!--class="com.andersen.entity.depInj.Instrumentalist"-->
+          <!--abstract="true"> &lt;!&ndash;Экземпляр класса не создается, абстрактный класс&ndash;&gt;-->
+        <!--<property name="song" value="Jingle Bells"/>-->
+        <!--<property name="instrument" ref="saxophone"/>-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash;подкласс&ndash;&gt;-->
+    <!--<bean id="david"-->
+          <!--class="com.andersen.entity.depInj.Instrumentalist"-->
+          <!--parent="baseSaxophonist" >-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash;переопределяем методы родительского класса&ndash;&gt;-->
+    <!--<bean id="frank" parent="baseSaxophonist">-->
+        <!--<property name="song" value="Mary had a little lamb" />-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash;Замещение метода&ndash;&gt;-->
+    <!--<bean id="harry"-->
+          <!--class="com.andersen.entity.depInj.Magician">-->
+        <!--<property name="magicBox" ref="magicBox" />-->
+        <!--<property name="magicWords" value="Bippity boppity boo" />-->
+    <!--</bean>-->
+    <!--&lt;!&ndash;<bean id="magicBox"&ndash;&gt;-->
+          <!--&lt;!&ndash;class="com.andersen.entity.depInj.MagicBoxImpl" />&ndash;&gt;-->
+    <!--&lt;!&ndash;*******************************************************&ndash;&gt;-->
+    <!--<bean id="magicBox"-->
+          <!--class="com.andersen.entity.depInj.MagicBoxImpl">-->
+        <!--<replaced-method-->
+                <!--name="getContents"-->
+                <!--replacer="tigerReplacer" />-->
+    <!--</bean>-->
+    <!--<bean id="tigerReplacer"-->
+          <!--class="com.andersen.entity.depInj.TigerReplacer" />-->
+
+
+</beans>
