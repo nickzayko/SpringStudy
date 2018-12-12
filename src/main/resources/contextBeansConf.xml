@@ -2,12 +2,51 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 
     <!--для конфигурации Spring с помощью программного кода-->
     <context:component-scan base-package="com.andersen.entity.configuration"/>
+
+    <!--пример настройки AOP-->
+    <bean id="audience"
+          class="com.andersen.entity.AOP.Audience"/>
+
+    <aop:config>
+        <aop:aspect ref="audience">
+            <aop:pointcut id="performance" expression=
+                    "execution(* com.andersen.entity.constructor.Performer.perform(..))"/> <!-- Определение среза множества точек сопряжения -->
+            <aop:before pointcut-ref="performance"
+                        method="takeSeats" />
+            <aop:before pointcut-ref="performance"
+                        method="turnOffCellPhones" />
+            <aop:after-returning
+                    pointcut-ref="performance"
+                    method="applaud" />
+            <aop:after-throwing
+                    pointcut-ref="performance"
+                    method="demandRefund" />
+        </aop:aspect>
+    </aop:config>
+
+    <!--<aop:config>-->
+        <!--<aop:aspect ref="audience"> &lt;!&ndash; Ссылка на компонент audience &ndash;&gt;-->
+            <!--<aop:before pointcut=-->
+                                <!--"execution(* com.andersen.entity.constructor.Performer.perform(..))"-->
+                        <!--method="takeSeats" /> &lt;!&ndash; Перед выступлением &ndash;&gt;-->
+            <!--<aop:before pointcut=-->
+                                <!--"execution(* com.andersen.entity.constructor.Performer.perform(..))"-->
+                        <!--method="turnOffCellPhones" /> &lt;!&ndash; Перед выступлением &ndash;&gt;-->
+            <!--<aop:after-returning pointcut=-->
+                                         <!--"execution(* com.andersen.entity.constructor.Performer.perform(..))"-->
+                                 <!--method="applaud" /> &lt;!&ndash; После выступления &ndash;&gt;-->
+            <!--<aop:after-throwing pointcut=-->
+                                        <!--"execution(* com.andersen.entity.constructor.Performer.perform(..))"-->
+                                <!--method="demandRefund" /> &lt;!&ndash; После неудачного выступления &ndash;&gt;-->
+        <!--</aop:aspect>-->
+    <!--</aop:config>-->
 
     <!--для использования автоматического определения компонентов-->
     <!--<context:component-scan base-package="com.andersen.entity"/>-->

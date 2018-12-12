@@ -41,7 +41,7 @@ public class App
 //        instrumentalist.perform();
 
 
-        Performer instrumentalist = (Performer) applicationContext.getBean("poeticDuke");
+        Performer instrumentalist = (Performer) applicationContext.getBean("duke15");
         instrumentalist.perform();
 
     }
